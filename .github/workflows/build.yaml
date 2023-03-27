@@ -27,7 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - run: npm ci && npm run build
     - name: Post message to Slack via botToken
       id: slackToken
       uses: ./
