@@ -24,7 +24,3 @@ jobs:
         run: npm run build
         
         
-      - name: Notify Slack
-        run: |
-            main: "slack.yaml"
-        
