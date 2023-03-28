@@ -23,3 +23,8 @@ jobs:
       - name: Build site
         run: npm run build
         
+        
+      - name: Notify Slack
+        run: |
+            main: "slack.yaml"
+        
