@@ -84,7 +84,7 @@ jobs:
                           "text": "View Build History"
                         },
                         "value": "Cloudside",
-                        "style": "primary",
+                        "style": "{% if env.status == 'success' %}primary{% else %}danger{% endif %}",
                         "url": "${{ env.logUrl }}",
                         "action_id": "button-action"
                       }
