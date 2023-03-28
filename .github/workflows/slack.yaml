@@ -1,5 +1,25 @@
- on:
-  push: |
+name: Slack Notification
+
+on:
+  workflow_call:
+    inputs:
+      STATUS:
+        required: true
+        type: string
+
+    secrets:
+      SLACK_PR_CHANNEL_ID:
+        required: true
+      SLACK_BOT_TOKEN:
+        required: true
+
+jobs:
+  send-slack-notification:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Print out status sent
+        run: echo "${{ inputs.STATUS }}"
 
       - name: Post to a Slack channel
         id: slack
@@ -8,17 +28,49 @@
         with:
           channel-id: ${{ secrets.SLACK_PR_CHANNEL_ID }}
           payload: |
-            {
-              "text": "${{ github.repository }} Build result",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "${{ github.repository }} build status: ${{ env.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                  }
+            [
+              {
+              "type": "section",
+              "text": {
+                "type": "plain_text",
+                "text": "Hi Team :wave: \n ${{ github.repository }} Build Status:"
+              }
+              },
+              {
+                "type": "divider"
+              },
+              {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*Status:* ${{ inputs.STATUS }}\n*Repo:* <https://github.com/madewithkoji/${{ github.repository }}|${{ github.repository }}>"
+              },
+              "accessory": {
+                "type": "button",
+                "text": {
+                  "type": "plain_text",
+                  "text": "View Build History"
+                },
+                "value": "Cloudside",
+                "style": "primary",
+                "action_id": "button-action"
+              }
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Commit Details Name:* ${{ github.event.head_commit.url }}\n*Commit Message:* ${{ github.event.head_commit.message }}\n*Github Actor:* ${{ github.actor }}"
                 }
-              ]
-            }
+              },
+              {
+                "type": "divider"
+              }
+            ]
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+

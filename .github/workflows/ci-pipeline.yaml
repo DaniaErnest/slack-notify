@@ -1,11 +1,26 @@
- name: 'Build Docker image'
- on:
-  workflow_call:
-    secrets:
-      SLACK_PR_CHANNEL_ID:
-        required: true
-      SLACK_BOT_TOKEN:
-        required: true
+name: 'Deployment'
 
-      run: |
-            main: "build.yaml"
+on:
+  push:
+    branches:
+      - master
+      - main
+      - '*'
+      - '**'
+
+jobs:
+
+  build-app-image:
+    name: Build docker and push to ECR
+    uses: ./.github/workflows/build.yml
+
+  slack-notify:
+    name: Deploy to EKS
+    needs: [build-app-image]
+    if: always()
+    uses: ./.github/workflows/slack.yaml
+    with:
+      STATUS: "${{ join(needs.*.result, ' ') }}"
+    secrets:
+      SLACK_PR_CHANNEL_ID: ${{ secrets.SLACK_PR_CHANNEL_ID }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

@@ -22,27 +22,3 @@ jobs:
 
       - name: Build site
         run: npm run build
-        
-      - name: Post to a Slack channel
-        id: slack
-        if: steps.build-status.outputs.exit_code == 0
-        uses: slackapi/slack-github-action@v1.22.0
-        with:
-          channel-id: ${{ secrets.SLACK_PR_CHANNEL_ID }}
-          payload: |
-            {
-              "text": "${{ github.repository }} Build result",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "${{ github.repository }} build status: ${{ env.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        
-        
