@@ -14,12 +14,9 @@ jobs:
         uses: actions/setup-node@v2.5.1
         with:
           node-version: 14.x
+          
+      - name: Install dependencies
+        run: npm install
 
-      - name: Success satus
-        run: exit 0
-
-      # - name: Install dependencies
-      #   run: npm install
-
-      # - name: Build site
-      #   run: npm run build
+      - name: Build site
+        run: npm run build

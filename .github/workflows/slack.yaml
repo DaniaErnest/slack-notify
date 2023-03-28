@@ -35,7 +35,6 @@ jobs:
                   break
               fi
           done
-          echo "Printing out result from the array: $status"
           echo "status=$status" >> $GITHUB_ENV'
 
           # Execute the script
