@@ -44,12 +44,12 @@ jobs:
         run: |
           # Use the status environment variable in this step
           echo "Status: ${{ env.status }}"
+
       - name: Generate Run Logs Url
         run: |
-          # Use the status environment variable in this step
           logUrl="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           echo "Build Log URL: $logUrl"
-          echo "logUrl=$logUrl" >> $GITHUB_ENV'
+          echo "logUrl=$logUrl" >> $GITHUB_ENV
 
       - name: Post to a Slack channel
         id: slack
