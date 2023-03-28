@@ -9,4 +9,3 @@
 
       run: |
             main: "build.yaml"
-            main: "slack.yaml"
