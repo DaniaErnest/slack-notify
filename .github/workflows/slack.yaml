@@ -30,21 +30,21 @@ jobs:
           payload: |
             [
               {
-              "type": "section",
-              "text": {
-                "type": "plain_text",
-                "text": "Hi Team :wave: \n ${{ github.repository }} Build Status:"
-              }
+                "type": "section",
+                "text": {
+                  "type": "plain_text",
+                  "text": "Hi Team :wave: \n ${{ github.repository }} Build Status:"
+                }
               },
               {
                 "type": "divider"
               },
               {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "*Status:* ${{ inputs.STATUS }}\n*Repo:* <https://github.com/madewithkoji/${{ github.repository }}|${{ github.repository }}>"
-              },
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Status:* ${{ inputs.STATUS }}\n*Repo:* <https://github.com/madewithkoji/${{ github.repository }}|${{ github.repository }}>"
+                },
               "accessory": {
                 "type": "button",
                 "text": {
