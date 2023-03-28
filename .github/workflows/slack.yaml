@@ -38,7 +38,7 @@ jobs:
               fi
           done
           echo "status=$status" >> $GITHUB_ENV
-          echo "style=$style" >> $GITHUB_ENV
+          echo "style=$style" >> $GITHUB_ENV'
 
           # Execute the script
           bash -c "$script"
