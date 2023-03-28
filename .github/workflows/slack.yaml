@@ -21,6 +21,30 @@ jobs:
       - name: Print out status sent
         run: echo "${{ inputs.STATUS }}"
 
+      - name: Execute Bash Script
+        run: |
+          # Define the bash script inline
+          script='#!/bin/bash
+          input_string="success success"
+          read -ra array <<< "$input_string"
+          status="success"
+          for element in "${array[@]}"
+          do
+              if [ "$element" != "success" ]; then
+                  status="failure"
+                  break
+              fi
+          done
+          echo "status=$status" >> $GITHUB_ENV'
+
+          # Execute the script
+          bash -c "$script"
+
+      - name: Print out Status Environment Variable
+        run: |
+          # Use the status environment variable in this step
+          echo "Status: ${{ env.status }}"
+
       - name: Post to a Slack channel
         id: slack
         if: steps.build-status.outputs.exit_code == 0
@@ -43,7 +67,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Status:* ${{ inputs.STATUS }}\n*Repo:* <https://github.com/madewithkoji/${{ github.repository }}|${{ github.repository }}>"
+                  "text": "*Status:* ${{ env.status }}\n*Repo:* <https://github.com/madewithkoji/${{ github.repository }}|${{ github.repository }}>"
                 },
               "accessory": {
                 "type": "button",
