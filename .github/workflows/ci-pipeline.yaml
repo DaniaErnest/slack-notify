@@ -24,7 +24,7 @@ jobs:
     if: always()
     uses: ./.github/workflows/slack.yaml
     with:
-      STATUS: "${{ join(needs.*.result, ' ') }}"
+      STATUS: "${{ needs.run-test.result }} ${{ needs.build-app-image.result }}"
     secrets:
       SLACK_PR_CHANNEL_ID: ${{ secrets.SLACK_PR_CHANNEL_ID }}
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
