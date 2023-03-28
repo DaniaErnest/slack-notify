@@ -12,7 +12,7 @@ jobs:
 
   build-app-image:
     name: Build docker and push to ECR
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build.yaml
 
   slack-notify:
     name: Deploy to EKS
