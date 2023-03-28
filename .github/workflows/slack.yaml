@@ -1,5 +1,3 @@
- name: Notify Slack
-
  on:
   push: |
 
