@@ -10,6 +10,10 @@ on:
 
 jobs:
 
+  run-test:
+    name: Testing Stage success
+    uses: ./.github/workflows/test.yaml
+
   build-app-image:
     name: Build docker and push to ECR
     uses: ./.github/workflows/build.yaml
