@@ -1,1 +1,11 @@
+ name: 'Build Docker image'
+ on:
+  workflow_call:
+    secrets:
+      SLACK_PR_CHANNEL_ID:
+        required: true
+      SLACK_BOT_TOKEN:
+        required: true
 
+      run: |
+            main: "build.yaml"
