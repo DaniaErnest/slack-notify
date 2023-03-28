@@ -44,6 +44,12 @@ jobs:
         run: |
           # Use the status environment variable in this step
           echo "Status: ${{ env.status }}"
+      - name: Generate Run Logs Url
+        run: |
+          # Use the status environment variable in this step
+          logUrl="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "Build Log URL: $logUrl"
+          echo "logUrl=$logUrl" >> $GITHUB_ENV'
 
       - name: Post to a Slack channel
         id: slack
@@ -79,6 +85,7 @@ jobs:
                         },
                         "value": "Cloudside",
                         "style": "primary",
+                        "url": "${{ env.logUrl }}",
                         "action_id": "button-action"
                       }
                       },
@@ -89,7 +96,7 @@ jobs:
                         "type": "section",
                         "text": {
                           "type": "mrkdwn",
-                          "text": "*Commit Details Name:* ${{ github.event.head_commit.url }}\n*Commit Message:* ${{ github.event.head_commit.message }}\n*Github Actor:* ${{ github.actor }}"
+                          "text": "*Commit Ref:* ${{ github.event.head_commit.url }}\n*Commit Message:* ${{ github.event.head_commit.message }}\n*Github Actor:* ${{ github.actor }}"
                         }
                       },
                       {
