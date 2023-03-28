@@ -20,7 +20,6 @@ jobs:
 
   slack-notify:
     name: Deploy to EKS
-    needs: [build-app-image]
     if: always()
     uses: ./.github/workflows/slack.yaml
     with:
