@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run echo
-        run: echo "YES!!!" && exit 1
+        run: echo "YES!!!" && exit 0
